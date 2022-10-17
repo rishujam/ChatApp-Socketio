@@ -15,6 +15,7 @@ import com.example.chatapp.data.models.InitialData
 import com.example.chatapp.data.models.Message
 import com.example.chatapp.data.models.SendMessage
 import com.example.chatapp.presentation.ChatViewModel
+import com.example.chatapp.presentation.epoxy.MenuController
 import com.example.chatapp.util.MessageType
 import com.example.chatapp.util.Resource
 import com.google.gson.Gson
@@ -64,20 +65,25 @@ class ChatRoomActivity : AppCompatActivity(), View.OnClickListener{
                     if(data!=null){
                         lifecycleScope.launchWhenStarted {
                             var messages = emptyList<Message>()
-//                            binding.recyclerView.withModels {
-//                                messages.forEach { message ->
-//                                    messageItem {
-//                                        id(message.uid)
-//                                        message(message)
-//                                        isOutGoing(message.username == username)
-//                                    }
-//                                }
-//                            }
+                            binding.recyclerView.withModels {
+                                messages.forEach { message ->
+                                    messageItem {
+                                        id(message.uid)
+                                        message(message)
+                                        isOutGoing(message.username == username)
+                                    }
+                                }
+                            }
 
 //                            viewModel.chats(MessageType.CHAT_MINE.index,roomName).collect {
 //                                messages = it
 //                                binding.recyclerView.requestModelBuild()
 //                            }
+                            val controller = MenuController()
+                            binding.recyclerView.setController(controller)
+                            viewModel.items.observe(viewLifecycleOwner) { items ->
+
+                            }
                         }.invokeOnCompletion {
                             Toast.makeText(this, "Start chatting", Toast.LENGTH_SHORT).show()
                         }

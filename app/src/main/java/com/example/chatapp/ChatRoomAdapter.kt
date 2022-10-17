@@ -49,7 +49,7 @@ class ChatRoomAdapter(
             MessageType.CHAT_MINE.index -> {
                 holder.message.text = content
             }
-            MessageType.CHAT_MINE.index -> {
+            MessageType.CHAT_PARTNER.index -> {
                 holder.userName.text = userName
                 holder.message.text = content
             }
